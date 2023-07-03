@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shayari Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+  
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    .result {
+      margin-top: 20px;
+    }
+    .result>p{
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Shayari Generator</h1>
+    <div class="form-group">
+      <label for="keyword">Keyword:</label>
+      <input type="text" id="keyword" placeholder="Enter a keyword">
+    </div>
+    <button class="btn" onclick="generateShayari()">Generate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function generateShayari() {
+        let loading = false
+      const keyword = document.getElementById('keyword').value;
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = '';
+
+      if (!keyword) {
+        resultElement.innerHTML = '<p class="error">Please enter a keyword.</p>';
+        return;
+      }
+    
+      try {
+         loading = true
+         if(loading===true){
+            resultElement.innerHTML = `<p> Loading ...</p>`;
+         }
+        const response = await fetch(`http://localhost:8080/shayari?keyword=${encodeURIComponent(keyword)}`);
+        const data = await response.json();
+        const shayari = data.shayari;
+        console.log(shayari)
+        loading = false
+         if(loading===false){
+            resultElement.innerHTML = `<p>${shayari}</p>`;
+         }
+      } catch (error) {
+        console.log(error.message)
+        resultElement.innerHTML = '<p class="error">Something went wrong. Please try again later.</p>';
+      }
+    }
+  </script>
+</body>
+</html>

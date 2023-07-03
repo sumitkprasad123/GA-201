@@ -92,7 +92,7 @@
          if(loading===true){
             resultElement.innerHTML = `<p> Loading ...</p>`;
          }
-        const response = await fetch(`http://localhost:8080/shayari?keyword=${encodeURIComponent(keyword)}`);
+        const response = await fetch(`https://shayari-478h.onrender.com/shayari?keyword=${encodeURIComponent(keyword)}`);
         const data = await response.json();
         const shayari = data.shayari;
         console.log(shayari)

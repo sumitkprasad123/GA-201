@@ -41,12 +41,12 @@ require("dotenv").config();
           console.log("Invalid input. Please enter 'Y' or 'N'.");
           return;
         }
-      } catch (error) {
-        if (error.response) {
-          console.log(error.response.status);
-          console.log(error.response.data);
+      } catch (err) {
+        if (err.response) {
+          console.log(err.response.status);
+          console.log(err.response.data);
         } else {
-          console.log(error.message);
+          console.log(err.message);
         }
       }
     }
